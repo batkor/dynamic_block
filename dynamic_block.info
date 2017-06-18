@@ -1,0 +1,7 @@
+name = dynamic_block
+description = Dynamic output of text in a block depending on url
+
+configure = admin/structure/block/dynamic_block
+
+version = 1.1
+core = 7.x

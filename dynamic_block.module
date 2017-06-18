@@ -1,0 +1,82 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function dynamic_block_menu() {
+  $items['admin/structure/block/dynamic_block'] = array(
+    'title'            => t('Setting dynamic block'),
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('dynamic_block_setting_form'),
+    'access arguments' => array('administer site configuration'),
+    'file'             => 'dynamic_block.form.inc',
+  );
+
+  $items['admin/structure/block/dynamic_block/%/change'] = array(
+    'title'            => t('Change setting dynamic block'),
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('dynamic_block_change_setting_form', 4),
+    'access arguments' => array('administer site configuration'),
+    'file'             => 'dynamic_block.form.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * get all blocks
+ * dynamic_block_get_all_blocks.
+ */
+function dynamic_block_get_all_blocks() {
+  $vars = array('none' => t('Not selected'));
+  module_load_include('inc', 'block', 'block.admin');
+  global $theme_key;
+  $blocks = block_admin_display_prepare_blocks($theme_key);
+  if ($blocks) {
+    foreach ($blocks as $block) {
+      $vars[$block['module'] . '-' . $block['delta']] = $block['info'] . ' | ' . $block['module'] . ' - ' . $block['delta'];
+    }
+  }
+  return $vars;
+}
+
+/**
+ * get settings vars
+ * dynamic_block_get_settings_vars.
+ */
+function dynamic_block_get_settings_vars() {
+  $vars = variable_get('dynamic_block_setting_vars', array());
+  $options = array();
+  foreach ($vars as $key => $var) {
+    $options[$key] = array(
+      'url'     => $var['url'],
+      'body'    => substr(strip_tags($var['body']['value']), 0, 20),
+      'actions' => '<a href="'.$GLOBALS['base_url'].'/admin/structure/block/dynamic_block/' . $key . '/change">Изменить</a>',
+    );
+  }
+  return $options;
+}
+
+/**
+ * Implements hook_block_view_alter().
+ */
+function dynamic_block_block_view_alter(&$data, $block) {
+  $saved_block_module_delta = variable_get('dynamic_block_block_module_delta', FALSE);
+  if ($saved_block_module_delta) {
+    if ($block->module . '-' . $block->delta == $saved_block_module_delta) {
+      $current_path = current_path();
+      $options = variable_get('dynamic_block_setting_vars', array());
+      if (!empty($options)) {
+        foreach ($options as $option) {
+          $urls = explode(', ', $option['url']);
+          foreach ($urls as $url) {
+            if ($url == $current_path) {
+              $body = check_markup($option['body']['value'], $option['body']['format']);
+              $data['content'] = render($body);
+            }
+          }
+        }
+      }
+    }
+  }
+}
