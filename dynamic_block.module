@@ -26,6 +26,7 @@ function dynamic_block_menu() {
 /**
  * get all blocks
  * dynamic_block_get_all_blocks.
+ * @return array
  */
 function dynamic_block_get_all_blocks() {
   $vars = array('none' => t('Not selected'));
@@ -43,6 +44,7 @@ function dynamic_block_get_all_blocks() {
 /**
  * get settings vars
  * dynamic_block_get_settings_vars.
+ * @return array
  */
 function dynamic_block_get_settings_vars() {
   $vars = variable_get('dynamic_block_setting_vars', array());

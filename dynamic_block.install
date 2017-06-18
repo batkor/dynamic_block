@@ -1,2 +1,10 @@
 <?php
 
+/**
+ * Реализация hook_uninstall()
+ */
+function dynamic_block_uninstall() {
+  foreach (array('dynamic_block_block_module_delta', 'dynamic_block_setting_vars') as $name) {
+    variable_del($name);
+  }
+}

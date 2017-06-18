@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * @see dynamic_block_menu
+ * form setting form
+ * @param $form
+ * @param $form_state
+ *
+ * @return mixed
+ */
 function dynamic_block_setting_form($form, &$form_state) {
 
   $saved_block_module_delta = variable_get('dynamic_block_block_module_delta', 'none');
@@ -74,16 +81,31 @@ function dynamic_block_setting_form($form, &$form_state) {
   return $form;
 }
 
+/**
+ * @see dynamic_block_setting_form
+ * @param $form
+ * @param $form_state
+ */
 function dynamic_block_setting_form_submit_selected($form, &$form_state) {
   variable_set('dynamic_block_block_module_delta', $form_state['values']['block_module_delta']);
 }
 
+/**
+ * @see dynamic_block_setting_form
+ * @param $form
+ * @param $form_state
+ */
 function dynamic_block_setting_form_submit_selected_validate($form, &$form_state) {
   if ($form_state['values']['block_module_delta'] == 'none') {
     form_set_error('block_module_delta', t('Please selected block'));
   }
 }
 
+/**
+ * @see dynamic_block_setting_form
+ * @param $form
+ * @param $form_state
+ */
 function dynamic_block_setting_form_add_setting($form, &$form_state) {
   $vars = variable_get('dynamic_block_setting_vars', array());
   $urls = str_replace("\r\n", ', ', $form_state['values']['new_url']);
@@ -94,6 +116,11 @@ function dynamic_block_setting_form_add_setting($form, &$form_state) {
   variable_set('dynamic_block_setting_vars', $vars);
 }
 
+/**
+ * @see dynamic_block_setting_form
+ * @param $form
+ * @param $form_state
+ */
 function dynamic_block_setting_form_add_setting_validate($form, &$form_state) {
   if ($form_state['values']['new_url'] == '') {
     form_set_error('new_setting][new_url', t('Please fill in the field "URL"'));
@@ -114,6 +141,12 @@ function dynamic_block_setting_form_add_setting_validate($form, &$form_state) {
   }
 }
 
+/**
+ * @see dynamic_block_setting_form
+ * remove items setting
+ * @param $form
+ * @param $form_state
+ */
 function dynamic_block_setting_form_remove_settings($form, &$form_state) {
   $vars = variable_get('dynamic_block_setting_vars', array());
   if (isset($form_state['input']['settings'])) {
@@ -126,11 +159,26 @@ function dynamic_block_setting_form_remove_settings($form, &$form_state) {
   variable_set('dynamic_block_setting_vars', $vars);
 }
 
+/**
+ * @see dynamic_block_setting_form
+ * clear all settings module
+ * @param $form
+ * @param $form_state
+ */
 function dynamic_block_setting_form_clear_settings($form, &$form_state) {
   variable_del('dynamic_block_setting_vars');
   variable_del('dynamic_block_block_module_delta');
 }
 
+/**
+ * @see dynamic_block_menu
+ * form change setting
+ * @param $form
+ * @param $form_state
+ * @param $key
+ *
+ * @return mixed
+ */
 function dynamic_block_change_setting_form($form, &$form_state, $key) {
   $form_state['key'] = $key;
   $vars = variable_get('dynamic_block_setting_vars', array());
@@ -171,6 +219,11 @@ function dynamic_block_change_setting_form($form, &$form_state, $key) {
   return $form;
 }
 
+/**
+ * @see dynamic_block_change_setting_form
+ * @param $form
+ * @param $form_state
+ */
 function dynamic_block_setting_form_save_setting($form, &$form_state){
   $vars = variable_get('dynamic_block_setting_vars', array());
   if(!empty($vars)){
@@ -188,6 +241,11 @@ function dynamic_block_setting_form_save_setting($form, &$form_state){
   drupal_goto('admin/structure/block/dynamic_block');
 }
 
+/**
+ * @see dynamic_block_change_setting_form
+ * @param $form
+ * @param $form_state
+ */
 function dynamic_block_setting_form_save_setting_validate($form, &$form_state){
   if ($form_state['values']['url'] == '') {
     form_set_error('url', t('Please fill in the field "URL"'));

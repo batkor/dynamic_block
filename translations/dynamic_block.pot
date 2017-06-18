@@ -1,0 +1,114 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  dynamic_block.form.inc: n/a
+#  dynamic_block.module: n/a
+#  dynamic_block.info: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2017-06-18 20:50+0800\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: dynamic_block.form.inc:15
+msgid "Selected block"
+msgstr ""
+
+#: dynamic_block.form.inc:22
+msgid "Select and save"
+msgstr ""
+
+#: dynamic_block.form.inc:28
+msgid "Url"
+msgstr ""
+
+#: dynamic_block.form.inc:29;63;207
+msgid "Body"
+msgstr ""
+
+#: dynamic_block.form.inc:30
+msgid "Actions"
+msgstr ""
+
+#: dynamic_block.form.inc:36
+msgid "Settings"
+msgstr ""
+
+#: dynamic_block.form.inc:39
+msgid "Select the block first"
+msgstr ""
+
+#: dynamic_block.form.inc:44
+msgid "Remove selected settings"
+msgstr ""
+
+#: dynamic_block.form.inc:49
+msgid "New settings"
+msgstr ""
+
+#: dynamic_block.form.inc:57;200
+msgid "Indicate url"
+msgstr ""
+
+#: dynamic_block.form.inc:58;201
+msgid "Enter the path to each page in a separate line."
+msgstr ""
+
+#: dynamic_block.form.inc:69
+msgid "Add settings and save"
+msgstr ""
+
+#: dynamic_block.form.inc:77
+msgid "Clear all settings"
+msgstr ""
+
+#: dynamic_block.form.inc:100
+msgid "Please selected block"
+msgstr ""
+
+#: dynamic_block.form.inc:126;251
+msgid "Please fill in the field \"URL\""
+msgstr ""
+
+#: dynamic_block.form.inc:129;254
+msgid "Please fill in the field \"Body\""
+msgstr ""
+
+#: dynamic_block.form.inc:138
+msgid "URL \"@url\" already set"
+msgstr ""
+
+#: dynamic_block.form.inc:214
+msgid "Save settings"
+msgstr ""
+
+#: dynamic_block.module:8
+msgid "Setting dynamic block"
+msgstr ""
+
+#: dynamic_block.module:16
+msgid "Change setting dynamic block"
+msgstr ""
+
+#: dynamic_block.module:32
+msgid "Not selected"
+msgstr ""
+
+#: dynamic_block.info:0
+msgid "dynamic_block"
+msgstr ""
+
+#: dynamic_block.info:0
+msgid "Dynamic output of text in a block depending on url"
+msgstr ""
+
