@@ -2,6 +2,7 @@
 /**
  * @see dynamic_block_menu
  * form setting form
+ *
  * @param $form
  * @param $form_state
  *
@@ -9,19 +10,8 @@
  */
 function dynamic_block_setting_form($form, &$form_state) {
 
-  $saved_block_module_delta = variable_get('dynamic_block_block_module_delta', 'none');
   $form['block_module_delta'] = array(
-    '#type'          => 'select',
-    '#title'         => t('Selected block'),
-    '#options'       => dynamic_block_get_all_blocks(),
-    '#default_value' => $saved_block_module_delta,
-  );
-
-  $form['submit_selected'] = array(
-    '#type'     => 'submit',
-    '#value'    => t('Select and save'),
-    '#submit'   => array('dynamic_block_setting_form_submit_selected'),
-    '#validate' => array('dynamic_block_setting_form_submit_selected_validate'),
+    '#markup' => '<div>Создан динамический блок <br> <a href="' . $GLOBALS['base_url'] . '/admin/structure/block/manage/dynamic_block/dynamic-block/configure">Динамический блок (создан модулем dynamic_block)</a></div>',
   );
 
   $header = array(
@@ -51,26 +41,24 @@ function dynamic_block_setting_form($form, &$form_state) {
     '#suffix' => '</div>',
   );
 
-  if ($saved_block_module_delta != 'none') {
-    $form['new_setting']['new_url'] = array(
-      '#type'        => 'textarea',
-      '#title'       => t('Indicate url'),
-      '#description' => t('Enter the path to each page in a separate line.'),
-    );
+  $form['new_setting']['new_url'] = array(
+    '#type'        => 'textarea',
+    '#title'       => t('Indicate url'),
+    '#description' => t('Enter the path to each page in a separate line.'),
+  );
 
-    $form['new_setting']['new_body'] = array(
-      '#type'   => 'text_format',
-      '#title'  => t('Body'),
-      '#format' => NULL,
-    );
+  $form['new_setting']['new_body'] = array(
+    '#type'   => 'text_format',
+    '#title'  => t('Body'),
+    '#format' => NULL,
+  );
 
-    $form['new_setting']['add_setting'] = array(
-      '#type'     => 'submit',
-      '#value'    => t('Add settings and save'),
-      '#submit'   => array('dynamic_block_setting_form_add_setting'),
-      '#validate' => array('dynamic_block_setting_form_add_setting_validate'),
-    );
-  }
+  $form['new_setting']['add_setting'] = array(
+    '#type'     => 'submit',
+    '#value'    => t('Add settings and save'),
+    '#submit'   => array('dynamic_block_setting_form_add_setting'),
+    '#validate' => array('dynamic_block_setting_form_add_setting_validate'),
+  );
 
   $form['clear_settings'] = array(
     '#type'   => 'submit',
@@ -83,15 +71,7 @@ function dynamic_block_setting_form($form, &$form_state) {
 
 /**
  * @see dynamic_block_setting_form
- * @param $form
- * @param $form_state
- */
-function dynamic_block_setting_form_submit_selected($form, &$form_state) {
-  variable_set('dynamic_block_block_module_delta', $form_state['values']['block_module_delta']);
-}
-
-/**
- * @see dynamic_block_setting_form
+ *
  * @param $form
  * @param $form_state
  */
@@ -103,6 +83,7 @@ function dynamic_block_setting_form_submit_selected_validate($form, &$form_state
 
 /**
  * @see dynamic_block_setting_form
+ *
  * @param $form
  * @param $form_state
  */
@@ -118,6 +99,7 @@ function dynamic_block_setting_form_add_setting($form, &$form_state) {
 
 /**
  * @see dynamic_block_setting_form
+ *
  * @param $form
  * @param $form_state
  */
@@ -144,6 +126,7 @@ function dynamic_block_setting_form_add_setting_validate($form, &$form_state) {
 /**
  * @see dynamic_block_setting_form
  * remove items setting
+ *
  * @param $form
  * @param $form_state
  */
@@ -162,17 +145,18 @@ function dynamic_block_setting_form_remove_settings($form, &$form_state) {
 /**
  * @see dynamic_block_setting_form
  * clear all settings module
+ *
  * @param $form
  * @param $form_state
  */
 function dynamic_block_setting_form_clear_settings($form, &$form_state) {
   variable_del('dynamic_block_setting_vars');
-  variable_del('dynamic_block_block_module_delta');
 }
 
 /**
  * @see dynamic_block_menu
  * form change setting
+ *
  * @param $form
  * @param $form_state
  * @param $key
@@ -196,17 +180,17 @@ function dynamic_block_change_setting_form($form, &$form_state, $key) {
   }
 
   $form['url'] = array(
-    '#type'        => 'textarea',
-    '#title'       => t('Indicate url'),
-    '#description' => t('Enter the path to each page in a separate line.'),
+    '#type'          => 'textarea',
+    '#title'         => t('Indicate url'),
+    '#description'   => t('Enter the path to each page in a separate line.'),
     '#default_value' => $var_settings['url'],
   );
 
   $form['body'] = array(
-    '#type'   => 'text_format',
-    '#title'  => t('Body'),
-    '#default_value' => (!empty($var_settings['body']))? $var_settings['body']['value']:'',
-    '#format' => (!empty($var_settings['body']))? $var_settings['body']['format']:'',
+    '#type'          => 'text_format',
+    '#title'         => t('Body'),
+    '#default_value' => (!empty($var_settings['body'])) ? $var_settings['body']['value'] : '',
+    '#format'        => (!empty($var_settings['body'])) ? $var_settings['body']['format'] : '',
   );
 
   $form['save_setting'] = array(
@@ -221,14 +205,15 @@ function dynamic_block_change_setting_form($form, &$form_state, $key) {
 
 /**
  * @see dynamic_block_change_setting_form
+ *
  * @param $form
  * @param $form_state
  */
-function dynamic_block_setting_form_save_setting($form, &$form_state){
+function dynamic_block_setting_form_save_setting($form, &$form_state) {
   $vars = variable_get('dynamic_block_setting_vars', array());
-  if(!empty($vars)){
+  if (!empty($vars)) {
     foreach ($vars as $key => $var) {
-      if($key==$form_state['key']){
+      if ($key == $form_state['key']) {
         $urls = str_replace("\r\n", ', ', $form_state['values']['url']);
         $vars[$key] = array(
           'url'  => $urls,
@@ -243,10 +228,11 @@ function dynamic_block_setting_form_save_setting($form, &$form_state){
 
 /**
  * @see dynamic_block_change_setting_form
+ *
  * @param $form
  * @param $form_state
  */
-function dynamic_block_setting_form_save_setting_validate($form, &$form_state){
+function dynamic_block_setting_form_save_setting_validate($form, &$form_state) {
   if ($form_state['values']['url'] == '') {
     form_set_error('url', t('Please fill in the field "URL"'));
   }

@@ -10,86 +10,80 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2017-06-18 20:51+0800\n"
-"PO-Revision-Date: 2017-06-18 21:09+0800\n"
+"POT-Creation-Date: 2017-06-21 03:52+0800\n"
+"PO-Revision-Date: 2017-06-21 03:53+0800\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Russian <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+"Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n"
+"%100)!=11))?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n"
+"%100)<10)||((n%100)>=20)))?(1):2));\n"
 "Language: ru\n"
 "X-Generator: Poedit 2.0.2\n"
 
-#: dynamic_block.form.inc:15
-msgid "Selected block"
-msgstr "Выберите блок"
-
-#: dynamic_block.form.inc:22
-msgid "Select and save"
-msgstr "Выбрать и сохранить"
-
-#: dynamic_block.form.inc:28
+#: dynamic_block.form.inc:18
 msgid "Url"
 msgstr "Url-адрес"
 
-#: dynamic_block.form.inc:29;63;207
+#: dynamic_block.form.inc:19;52;191
 msgid "Body"
 msgstr "Содержимое"
 
-#: dynamic_block.form.inc:30
+#: dynamic_block.form.inc:20
 msgid "Actions"
 msgstr "Действия"
 
-#: dynamic_block.form.inc:36
+#: dynamic_block.form.inc:26
 msgid "Settings"
 msgstr "Настройки"
 
-#: dynamic_block.form.inc:39
+#: dynamic_block.form.inc:29
 msgid "Select the block first"
 msgstr "С начало выберите блок"
 
-#: dynamic_block.form.inc:44
+#: dynamic_block.form.inc:34
 msgid "Remove selected settings"
 msgstr "Удалить выбранные параметры"
 
-#: dynamic_block.form.inc:49
+#: dynamic_block.form.inc:39
 msgid "New settings"
 msgstr "Новый параметр"
 
-#: dynamic_block.form.inc:57;200
+#: dynamic_block.form.inc:46;184
 msgid "Indicate url"
 msgstr "Укажите URL"
 
-#: dynamic_block.form.inc:58;201
+#: dynamic_block.form.inc:47;185
 msgid "Enter the path to each page in a separate line."
 msgstr "Вводите каждый URL в отдельной строке."
 
-#: dynamic_block.form.inc:69
+#: dynamic_block.form.inc:58
 msgid "Add settings and save"
 msgstr "Добавить параметр и сохранить"
 
-#: dynamic_block.form.inc:77
+#: dynamic_block.form.inc:65
 msgid "Clear all settings"
 msgstr "Удалить все настройки"
 
-#: dynamic_block.form.inc:100
+#: dynamic_block.form.inc:80
 msgid "Please selected block"
 msgstr "Пожалуйста выберите блок"
 
-#: dynamic_block.form.inc:126;251
+#: dynamic_block.form.inc:108;237
 msgid "Please fill in the field \"URL\""
 msgstr "Пожалуйста заполните поле \"URL\""
 
-#: dynamic_block.form.inc:129;254
+#: dynamic_block.form.inc:111;240
 msgid "Please fill in the field \"Body\""
 msgstr "Пожалуйста заполните поле \"Содержимое\""
 
-#: dynamic_block.form.inc:138
+#: dynamic_block.form.inc:120
 msgid "URL \"@url\" already set"
 msgstr "URL  \"@url\" уже установлен"
 
-#: dynamic_block.form.inc:214
+#: dynamic_block.form.inc:198
 msgid "Save settings"
 msgstr "Сохранить настройки"
 
@@ -101,7 +95,22 @@ msgstr "Настройки динамического блока"
 msgid "Change setting dynamic block"
 msgstr "Изменить параметры динамического блока"
 
-#: dynamic_block.module:32
+#: dynamic_block.module:31
+msgid "dynamick block (created block from dynamic block)"
+msgstr ""
+"Динамический блок(Блок создан модулем динамического "
+"блока)"
+
+#: dynamic_block.module:43
+msgid "Title dynamic block"
+msgstr "Заголовок динамического блока"
+
+#: dynamic_block.module:44
+msgid "Hi selected setting denamic block!"
+msgstr ""
+"Привет! укажите пожалуйста настройки динамического блока"
+
+#: dynamic_block.module:56
 msgid "Not selected"
 msgstr "Не выбрано"
 
@@ -111,4 +120,6 @@ msgstr ""
 
 #: dynamic_block.info:0
 msgid "Dynamic output of text in a block depending on url"
-msgstr "Модуль с динамическим содержимым блока в зависимости от url"
+msgstr ""
+"Модуль с динамическим содержимым болка в зависимости от "
+"url"
