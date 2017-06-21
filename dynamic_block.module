@@ -110,13 +110,15 @@ function dynamic_block_get_render_body($var) {
  */
 function dynamic_block_block_view_alter(&$data, $block) {
   if ($block->module == 'dynamic_block') {
+    $data['content'] = '';
     $current_path = current_path();
     $options = variable_get('dynamic_block_setting_vars', array());
     if (!empty($options)) {
       foreach ($options as $option) {
         $urls = explode(', ', $option['url']);
         foreach ($urls as $url) {
-          if ($url == $current_path) {
+          $page = (isset($_GET['page'])) ? $_GET['page'] : 0;
+          if ($url == $current_path && $page < 1) {
             if ($block->delta == 'dynamic-block-header') {
               $body = check_markup($option['body_header']['value'], $option['body_header']['format']);
             }
