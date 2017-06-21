@@ -27,8 +27,11 @@ function dynamic_block_menu() {
  * Implements hook_block_info().
  */
 function dynamic_block_block_info() {
-  $blocks['dynamic-block'] = array(
-    'info' => t('dynamick block (created block from dynamic block)'),
+  $blocks['dynamic-block-header'] = array(
+    'info' => t('dynamick block (header)'),
+  );
+  $blocks['dynamic-block-footer'] = array(
+    'info' => t('dynamick block (footer)'),
   );
   return $blocks;
 }
@@ -39,8 +42,13 @@ function dynamic_block_block_info() {
 function dynamic_block_block_view($delta = '') {
   $block = array();
 
-  if ($delta == 'dynamic-block') {
-    $block['subject'] = t('Title dynamic block');
+  if ($delta == 'dynamic-block-header') {
+    $block['subject'] = t('Title dynamic block header');
+    $block['content'] = t('Hi selected setting denamic block!');
+  }
+
+  if ($delta == 'dynamic-block-footer') {
+    $block['subject'] = t('Title dynamic block footer');
     $block['content'] = t('Hi selected setting denamic block!');
   }
   return $block;
@@ -77,7 +85,7 @@ function dynamic_block_get_settings_vars() {
   foreach ($vars as $key => $var) {
     $options[$key] = array(
       'url'     => $var['url'],
-      'body'    => substr(strip_tags($var['body']['value']), 0, 20),
+      'body'    => dynamic_block_get_render_body($var),
       'actions' => '<a href="' . $GLOBALS['base_url'] . '/admin/structure/block/dynamic_block/' . $key . '/change">Изменить</a>',
     );
   }
@@ -85,7 +93,20 @@ function dynamic_block_get_settings_vars() {
 }
 
 /**
- * Implements hook_block_view_alter().
+ * get body text for table
+ *
+ * @param $var
+ *
+ * @return string
+ */
+function dynamic_block_get_render_body($var) {
+  $output = '<div id="body_header"><label for="body_header">Dynamic block header</label>' . substr(strip_tags($var['body_header']['value']), 0, 20) . '</div>'
+    . '<div id="body_header"><label for="body_header">Dynamic block footer</label>' . substr(strip_tags($var['body_footer']['value']), 0, 20) . '</div>';
+  return $output;
+}
+
+/**
+ * Implements hook_block_view_alter()
  */
 function dynamic_block_block_view_alter(&$data, $block) {
   if ($block->module == 'dynamic_block') {
@@ -96,7 +117,12 @@ function dynamic_block_block_view_alter(&$data, $block) {
         $urls = explode(', ', $option['url']);
         foreach ($urls as $url) {
           if ($url == $current_path) {
-            $body = check_markup($option['body']['value'], $option['body']['format']);
+            if ($block->delta == 'dynamic-block-header') {
+              $body = check_markup($option['body_header']['value'], $option['body_header']['format']);
+            }
+            elseif ($block->delta == 'dynamic-block-footer') {
+              $body = check_markup($option['body_footer']['value'], $option['body_footer']['format']);
+            }
             $data['content'] = render($body);
           }
         }

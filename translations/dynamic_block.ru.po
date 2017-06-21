@@ -40,8 +40,8 @@ msgid "Settings"
 msgstr "Настройки"
 
 #: dynamic_block.form.inc:29
-msgid "Select the block first"
-msgstr "С начало выберите блок"
+msgid "No settings yet"
+msgstr "Пока нет настроек"
 
 #: dynamic_block.form.inc:34
 msgid "Remove selected settings"

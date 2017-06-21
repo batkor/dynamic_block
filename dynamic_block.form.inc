@@ -11,7 +11,9 @@
 function dynamic_block_setting_form($form, &$form_state) {
 
   $form['block_module_delta'] = array(
-    '#markup' => '<div>Создан динамический блок <br> <a href="' . $GLOBALS['base_url'] . '/admin/structure/block/manage/dynamic_block/dynamic-block/configure">Динамический блок (создан модулем dynamic_block)</a></div>',
+    '#markup' => '<ul id="dynamic-block-list"><label for="dynamic-block-list">Созданы динамические блоки</label>'
+      .'<li><a href="' . $GLOBALS['base_url'] . '/admin/structure/block/manage/dynamic_block/dynamic-block-header/configure">Dynamic block header</a></li>'
+      .'<li><a href="' . $GLOBALS['base_url'] . '/admin/structure/block/manage/dynamic_block/dynamic-block-footer/configure">Dynamic block footer</a></li></ul>',
   );
 
   $header = array(
@@ -26,7 +28,7 @@ function dynamic_block_setting_form($form, &$form_state) {
     '#title'   => t('Settings'),
     '#header'  => $header,
     '#options' => $options,
-    '#empty'   => t('Select the block first'),
+    '#empty'   => t('No settings yet'),
   );
 
   $form['remove_settings'] = array(
@@ -47,9 +49,15 @@ function dynamic_block_setting_form($form, &$form_state) {
     '#description' => t('Enter the path to each page in a separate line.'),
   );
 
-  $form['new_setting']['new_body'] = array(
+  $form['new_setting']['new_body_header'] = array(
     '#type'   => 'text_format',
-    '#title'  => t('Body'),
+    '#title'  => t('Body for Dynamic block header'),
+    '#format' => NULL,
+  );
+
+  $form['new_setting']['new_body_footer'] = array(
+    '#type'   => 'text_format',
+    '#title'  => t('Body for Dynamic block footer'),
     '#format' => NULL,
   );
 
@@ -92,7 +100,8 @@ function dynamic_block_setting_form_add_setting($form, &$form_state) {
   $urls = str_replace("\r\n", ', ', $form_state['values']['new_url']);
   $vars[] = array(
     'url'  => $urls,
-    'body' => $form_state['values']['new_body'],
+    'body_header' => $form_state['values']['new_body_header'],
+    'body_footer' => $form_state['values']['new_body_footer'],
   );
   variable_set('dynamic_block_setting_vars', $vars);
 }
@@ -106,9 +115,6 @@ function dynamic_block_setting_form_add_setting($form, &$form_state) {
 function dynamic_block_setting_form_add_setting_validate($form, &$form_state) {
   if ($form_state['values']['new_url'] == '') {
     form_set_error('new_setting][new_url', t('Please fill in the field "URL"'));
-  }
-  if ($form_state['values']['new_body'] == '') {
-    form_set_error('new_setting][new_body', t('Please fill in the field "Body"'));
   }
 
   $urls = explode("\r\n", $form_state['values']['new_url']);
@@ -174,7 +180,8 @@ function dynamic_block_change_setting_form($form, &$form_state, $key) {
     foreach ($vars as $key_var => $var) {
       if ($key_var == $key) {
         $var_settings['url'] = $var['url'];
-        $var_settings['body'] = $var['body'];
+        $var_settings['body_header'] = $var['body_header'];
+        $var_settings['body_footer'] = $var['body_footer'];
       }
     }
   }
@@ -186,11 +193,18 @@ function dynamic_block_change_setting_form($form, &$form_state, $key) {
     '#default_value' => $var_settings['url'],
   );
 
-  $form['body'] = array(
+  $form['body_header'] = array(
     '#type'          => 'text_format',
-    '#title'         => t('Body'),
-    '#default_value' => (!empty($var_settings['body'])) ? $var_settings['body']['value'] : '',
-    '#format'        => (!empty($var_settings['body'])) ? $var_settings['body']['format'] : '',
+    '#title'         => t('Body for Dynamic block header'),
+    '#default_value' => (!empty($var_settings['body_header'])) ? $var_settings['body_header']['value'] : '',
+    '#format'        => (!empty($var_settings['body_header'])) ? $var_settings['body_header']['format'] : '',
+  );
+
+  $form['body_footer'] = array(
+    '#type'          => 'text_format',
+    '#title'         => t('Body for Dynamic block footer'),
+    '#default_value' => (!empty($var_settings['body_footer'])) ? $var_settings['body_footer']['value'] : '',
+    '#format'        => (!empty($var_settings['body_footer'])) ? $var_settings['body_footer']['format'] : '',
   );
 
   $form['save_setting'] = array(
@@ -217,7 +231,8 @@ function dynamic_block_setting_form_save_setting($form, &$form_state) {
         $urls = str_replace("\r\n", ', ', $form_state['values']['url']);
         $vars[$key] = array(
           'url'  => $urls,
-          'body' => $form_state['values']['body'],
+          'body_header' => $form_state['values']['body_header'],
+          'body_footer' => $form_state['values']['body_footer'],
         );
       }
     }
@@ -235,8 +250,5 @@ function dynamic_block_setting_form_save_setting($form, &$form_state) {
 function dynamic_block_setting_form_save_setting_validate($form, &$form_state) {
   if ($form_state['values']['url'] == '') {
     form_set_error('url', t('Please fill in the field "URL"'));
-  }
-  if ($form_state['values']['body'] == '') {
-    form_set_error('body', t('Please fill in the field "Body"'));
   }
 }
